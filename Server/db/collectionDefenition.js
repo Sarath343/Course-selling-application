@@ -4,7 +4,14 @@ const adminSchema = new mongoose.Schema({
     username:String,
     password:String
 })
+const courseSchema = new mongoose.Schema({
+    title:String,
+    description:String,
+    price : Number,
+    imageLink:String,
+    published:Boolean,
+})
 
 const Admin = mongoose.model('Admin',adminSchema);
-
-module.exports={Admin}
+const Course = mongoose.model('Course',courseSchema);
+module.exports={Admin,Course}
