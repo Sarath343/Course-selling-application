@@ -6,9 +6,10 @@ const cors = require('cors');
 
 app = express();
 app.use(cors())
+app.use(express.json());
 
 
 
 app.use('/admin',adminRoute);
-mongoose.connect('mongodb+srv://sarathkp:cNBb05mvwJZjq5g0@cluster0.bju2rt8.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'courses' })
+mongoose.connect('mongodb+srv://<username>:<password>@cluster0.bju2rt8.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'courses' })
 app.listen(port, () => { console.log(`listening to port ${port}`) });
