@@ -1,26 +1,24 @@
-import './App.css';
-import { useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login.jsx'
+import Signup from './components/Signup.jsx'
+import AppBar from './components/AppBar.jsx'
+import AdminCourses from './components/AdminCourses.jsx'
+import Home from './components/Home.jsx';
 function App() {
-  useEffect(() => {
-    fetch("http://localhost:4000/admin/allAdmins/", {
-            method: "GET",
-            // headers: {
-            //     "Authorization": "Bearer " + localStorage.getItem("token")
-            // }
-        }).then((data) => {
-      console.log(data);
-    }
-
-    );
-
-  }, [])
-
 
   return (
-    <div className="App">
-
+    <div>
+      <Router>
+        <AppBar />
+        <Routes>
+          <Route path={'/'} element={<Home />} />
+          <Route path={'/Login'} element={<Login />} />
+          <Route path={'/Signup'} element={<Signup />} />
+          <Route path={'/Admin/Courses'} element={<AdminCourses />}></Route>
+        </Routes>
+      </Router>
     </div>
+
   );
 }
 
