@@ -1,13 +1,13 @@
+import { Card, Typography, Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 function AdminCourses() {
-    console.log(localStorage.getItem('token'));
     const [courses, setCourses] = useState([])
     useEffect(() => {
         const fetchCourses = async () => {
-            console.log(localStorage.getItem('token'));
             const data = await axios.get('http://localhost:4000/admin/getAllCourses', {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('token'),
@@ -21,21 +21,35 @@ function AdminCourses() {
     }, [])
 
     return (
-        <div>
-            <div>courseds </div>
-            <div>{
-                courses.map((element) => {
-                    return <Course course = {element} />
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  >
+ {  courses.map((element) => {
+                    return <Course course={element} />
                 })
-            }</div></div>
+            }</div>
     )
 }
-
-function Course(props) {
+const Image = ({src})=>{
+    return <img src={src} style={{ width: 300 ,maxHeight:300}}/>
+}
+function Course({ course }) {
+    const navigate = useNavigate();
     return (
-        <div>
-               {props.course.title}
-        </div>
+         <Card style={{
+                margin: 10,
+                width: 300,
+                minHeight: 200,
+                padding: 20
+            }}>
+                <Typography textAlign={'center'} variant="h5">{course.title}</Typography>
+                <Typography textAlign={"center"} variant="subtitle1">{course.description}</Typography>
+                <Image src={course.imageLink}  />
+                <Typography variant="subtitle1" textAlign={"center"}>Price : {course.price}</Typography>
+                <Button variant="contained" size="large" onClick={() => {
+                    console.log(course._id);
+                    navigate("/Admin/Courses/" + course._id)
+                }}>Edit</Button>
+            </Card>
+        
     )
 }
 export default AdminCourses;
