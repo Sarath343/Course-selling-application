@@ -5,6 +5,8 @@ const { authenticateJwt, secret } = require('../authentication/authentication')
 const jwt = require('jsonwebtoken')
 const router = express.Router();
 
+
+
 router.post('/login', async (req, res) => {
     const { username, password } = req.headers;
     const admin = await Admin.findOne({ username, password });
@@ -85,5 +87,11 @@ router.get('/getCourseById/:id', authenticateJwt, async (req, res) => {
         res.status(403).json({ message: "couldnot process request " })
     }
 })
-            
+router.get('/me',authenticateJwt,async (req,res)=>{
+    const admin = await  Admin.findOne({username:req.admin.username})
+   if(admin ){
+    return res.status(200).json({username:admin.username})
+   } 
+    res.status(403).json({username:null,message:"No admin exists"})
+})        
 module.exports = router;
