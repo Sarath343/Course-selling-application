@@ -12,6 +12,12 @@ const courseSchema = new mongoose.Schema({
     published:Boolean,
 })
 
+const userSChema = new mongoose.Schema({
+    username:String,
+    password:String,
+    purchasedCourses:[{type:mongoose.Schema.Types.ObjectId , ref:'Course'}]
+})
 const Admin = mongoose.model('Admin',adminSchema);
 const Course = mongoose.model('Course',courseSchema);
-module.exports={Admin,Course}
+const User = mongoose.model('User',userSChema)
+module.exports={Admin,Course,User}
