@@ -42,13 +42,20 @@ function Profile() {
   }, [])
   if (username) {
 
-    return (
+    return (<>
+      <Button variant="contained" size="large" 
+            onClick={()=>{
+                navigate('/Admin/Course')
+            }}
+            >
+                Add Course
+            </Button>
       <div> <Button variant='contained'
         onClick={() => {
           localStorage.setItem('token', null)
           window.location="/"
         }}
-      >Logout</Button><p>{username}</p></div>
+      >Logout</Button><p>{username}</p></div></>
     )
   }
   return (

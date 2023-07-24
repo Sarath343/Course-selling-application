@@ -3,22 +3,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-function AdminCourse() {
+function AddCourse() {
     const { courseId } = useParams();
     const [course, setCourse] = useState(null);
-    useEffect(() => {
-        const getCourseById = async () => {
-            const data = await axios.get('http://localhost:4000/admin/getCourseById/' + courseId,
-                {
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                    }
-                });
-            console.log(data.data.course);
-            setCourse(data.data.course);
-        }
-        getCourseById();
-    }, [])
+   
     if (course) {
         return (
             <Card>
@@ -39,10 +27,10 @@ function AdminCourse() {
     }
 }
 function UpdateCard({ course, setCourse }) {
-    const [title, setTitle] = useState(course.title);
-    const [description, setDescription] = useState(course.description);
-    const [imageLink, setImage] = useState(course.imageLink);
-    const [price, setPrice] = useState(course.price);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [imageLink, setImage] = useState("");
+    const [price, setPrice] = useState("");
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
 
@@ -156,4 +144,4 @@ function CourseCard({course}) {
     </div>
 }
 
-export default AdminCourse;
+export default AddCourse;
