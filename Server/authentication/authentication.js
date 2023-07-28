@@ -3,7 +3,7 @@ const secret = 'sEcr3t';
 function authenticateJwt(req, res, next) {
     const auth = req.headers.authorization;  // 'a' is in small case but while sending the request the paramter will be in caps only 
     if (!auth) {
-        return res.status(403).json({ message: "Authorization is missing " })
+        return res.status(401).json({username:null, message: "Authorization is missing " })
     }
     const token = auth.split(" ")[1];
     jwt.verify(token, secret, (err, admin) => {

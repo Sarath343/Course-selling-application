@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const { Admin, Course } = require('../db/collectionDefenition');
 const { authenticateJwt, secret } = require('../authentication/authentication')
 const jwt = require('jsonwebtoken')
@@ -92,6 +91,6 @@ router.get('/me',authenticateJwt,async (req,res)=>{
    if(admin ){
     return res.status(200).json({username:admin.username})
    } 
-    res.status(403).json({username:null,message:"No admin exists"})
+    res.status(403).json({message:"No admin exists"})
 })        
 module.exports = router;
