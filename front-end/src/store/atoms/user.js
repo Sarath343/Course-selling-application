@@ -1,9 +1,35 @@
-import {Atom} from 'recoil';
+import {atom} from 'recoil';
 
-export const userState = Atom({
+export const userState = atom({
     key:'userState',
     default:{
         isLoading:true,
         userEmail:null
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

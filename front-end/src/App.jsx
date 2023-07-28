@@ -6,8 +6,11 @@ import AdminCourses from './components/AdminCourses.jsx'
 import Home from './components/Home.jsx';
 import AdminCourse from './components/AdminCourse.jsx';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
-import { userState, useEffect } from './store/atoms/user.js';
+import { userState } from './store/atoms/user.js';
 import axios from 'axios';
+import { useEffect } from 'react';
+import { BASE_URL } from './config.js';
+import AddCourse from './components/AddCourse.jsx'
 function App() {
 
   return (
@@ -22,7 +25,9 @@ function App() {
             <Route path={'/Signup'} element={<Signup />} />
             <Route path={'/Admin/Courses'} element={<AdminCourses />}></Route>
             <Route path={'/Admin/Courses/:courseId'} element={<AdminCourse />}></Route>
-            <Route path={'/Admin/Course/'} element={<AdminCourse />}></Route> </Routes>
+            {/* <Route path={'/Admin/Course'} element={<AdminCourse />}></Route> */}
+            <Route path={'/AddCourse'} element={<AddCourse />}></Route>
+          </Routes>
         </Router>
       </div>
     </RecoilRoot>
@@ -32,7 +37,7 @@ const InitUser = () => {
   const setUser = useSetRecoilState(userState);
   const init = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/admin/me', {
+      const response = await axios.get(`${BASE_URL}/admin/me`, {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("token")
         }
@@ -55,11 +60,12 @@ const InitUser = () => {
         isLoading: false,
         userEmail: null
       })
-    }}
-    useEffect(() => {
-      init();
-    }, []);
-    return <></>
-  
+    }
+  }
+  useEffect(() => {
+    init();
+  }, []);
+  return <></>
+
 }
 export default App;
