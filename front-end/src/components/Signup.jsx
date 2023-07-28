@@ -4,6 +4,10 @@ import { Card, Typography, Button, Container, TextField, Grid } from "@mui/mater
 import '../App.css'
 import { makeStyles } from '@mui/styles';
 import { signupcontainer } from "../classes";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../store/atoms/user";
+import { BASE_URL } from "../config";
 const useStyles = makeStyles((theme) => ({
     signupcontainer
 }));
@@ -11,6 +15,8 @@ function Signup() {
     const classes = useStyles();
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+const setUser = useSetRecoilState(userState)
 
     return (
         <div >
@@ -36,11 +42,11 @@ function Signup() {
                             variant="contained"
                             onClick={async () => {
                                 console.log("usernamepassword " + username + " " + password)
-                                const signup = await axios.post('http://localhost:4000/admin/signup', { username, password })
-                                console.log("after axios ");
-                                const data = signup.data;
+                                const signup = await axios.post(`${BASE_URL}/admin/signup`, { username, password })
+                                let data = signup.data;
                                 localStorage.setItem("token", data.token);
-                                window.location = '/Admin/Courses';
+                                setUser({userEmail:username,isLoading:false})
+                                navigate('/Admin/Courses');
 
                             }}>Sign-up</Button>
                     </Card>
