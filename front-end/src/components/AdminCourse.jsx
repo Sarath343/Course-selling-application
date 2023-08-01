@@ -1,7 +1,7 @@
 import { Typography, Card, Grid, TextField, Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../config";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { courseState } from "../store/atoms/courseState";
@@ -21,9 +21,10 @@ function AdminCourse() {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 }
-            }).then(res => { 
-                console.log("course in admincourse "+JSON.stringify(res.data.course))
-                setCourse({ course: res.data.course, isCourseLoading: false }) })
+            }).then(res => {
+                console.log("course in admincourse " + JSON.stringify(res.data.course))
+                setCourse({ course: res.data.course, isCourseLoading: false })
+            })
             .catch(e => {
                 setCourse({ course: null, isCourseLoading: false });
 
@@ -62,7 +63,7 @@ function GrayTopper() {
 }
 function UpdateCard() {
     const [courseDetails, setCourse] = useRecoilState(courseState)
-
+    const navigate = useNavigate();
     console.log(courseDetails);
     const [title, setTitle] = useState(courseDetails.course.title);
     console.log(title)
@@ -138,7 +139,8 @@ function UpdateCard() {
                                 price
                             };
                             setCourse({ isCourseLoading: false, course: updatedCourse });
-
+                            alert("course updated successfully")
+                            navigate('/Admin/Courses')
                         }}
                     > Update course</Button>
                 </div>
@@ -150,7 +152,7 @@ function UpdateCard() {
 function CourseCard() {
     const title = useRecoilValue(courseTitleSelector);
     const imageLink = useRecoilValue(imageLinkSlector)
-    console.log("imagelink "+imageLink)
+    console.log("imagelink " + imageLink)
     return <div style={{ display: "flex", marginTop: 50, justifyContent: "center", width: "100%" }}>
         <Card style={{
             margin: 10,
@@ -165,7 +167,7 @@ function CourseCard() {
             <div style={{ marginLeft: 10 }}>
                 <Typography variant="h5">{title}</Typography>
                 <Price />
-           
+
             </div>
         </Card>
     </div>

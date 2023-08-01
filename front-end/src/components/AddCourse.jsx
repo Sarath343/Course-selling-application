@@ -15,7 +15,7 @@ function AddCourse() {
     >
         <div style={{ display: "flex", justifyContent: 'center' }}>
             <Card varint={"outlined"} style={{ width: 400, padding: 20, marginTop: 30, height: "100%" }}>
- <TextField
+                <TextField
                     style={{ marginBottom: 10 }}
                     fullWidth={true}
                     label="Title"
@@ -51,13 +51,13 @@ function AddCourse() {
             <TextField onChange={(e) => {
                 setPublished(e.target.value)
             }}></TextField> */}
-                <Button variant="contained" size="large" onClick={async() => {
+                <Button variant="contained" size="large" onClick={async () => {
                     const newCourse = {
-                        title, description, price, imageLink,published:false
+                        title, description, price, imageLink, published: false
                     }
-                    await axios.post(`${BASE_URL}/admin/addCourse`,newCourse,{
-                        headers:{
-                            'Authorization':'Bearer '+localStorage.getItem('token')
+                    await axios.post(`${BASE_URL}/admin/addCourse`, newCourse, {
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
                         }
                     })
                     alert("Successfully added course")

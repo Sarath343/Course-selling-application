@@ -43,8 +43,7 @@ const setUser = useSetRecoilState(userState)
                             onClick={async () => {
                                 console.log("usernamepassword " + username + " " + password)
                                 const signup = await axios.post(`${BASE_URL}/admin/signup`, { username, password })
-                                let data = signup.data;
-                                localStorage.setItem("token", data.token);
+                                 localStorage.setItem("token", signup.data.token);
                                 setUser({userEmail:username,isLoading:false})
                                 navigate('/Admin/Courses');
 
