@@ -15,7 +15,8 @@ const courseSchema = new mongoose.Schema({
 const userSChema = new mongoose.Schema({
     username:String,
     password:String,
-    purchasedCourses:[{type:mongoose.Schema.Types.ObjectId , ref:'Course'}]
+    purchasedCourses:[{type:mongoose.Schema.Types.ObjectId , ref:'Course'}],
+    wishlist :[{type:mongoose.Schema.Types.ObjectId,ref:'Course'}]
 })
 const Admin = mongoose.model('Admin',adminSchema);
 const Course = mongoose.model('Course',courseSchema);
