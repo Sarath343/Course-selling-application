@@ -29,7 +29,7 @@ function AdminCourses() {
     )
 }
 const Image = ({ src }) => {
-    return <img src={src} style={{ width: 300, maxHeight: 300 }} />
+    return <img src={src} alt="car pic" style={{ width: 300, maxHeight: 300 }} />
 }
 function Course({ course }) {
     const navigate = useNavigate();
