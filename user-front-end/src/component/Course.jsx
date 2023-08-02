@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../config";
 import { Loading } from "./Loading";
 
-
 const Course = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { courseId } = useParams();
@@ -28,22 +27,26 @@ const Course = () => {
     }, [])
     if (isLoading)
         return <Loading />
-    return         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  >
-    <Card style={{
-        margin: 10,
-        width: 600,
-        minHeight: 400,
-        padding: 20
-    }}>
-        <Typography textAlign={'center'} variant="h5">{course.title}</Typography>
-        <img alt="car pic" style={{ width: 300, maxHeight: 300 }} src={course.imageLink} />
-        <Typography textAlign={'center'} variant="h5">{course.description}</Typography>
-<Typography variant="subtitle1" textAlign={"center"}>Price : {course.price}</Typography>
-        <Button variant="contained" size="large" onClick={() => {
-          navigate("/Courses")
-            alert("item added to your cart")
-        }}>Add to cart</Button>
-    </Card></div>
+    return <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  >
+        <Card style={{
+            margin: 10,
+            width: 600,
+            minHeight: 400,
+            padding: 20
+        }}>
+            <Typography textAlign={'center'} variant="h5">{course.title}</Typography>
+            <img alt="car pic" style={{ width: 300, maxHeight: 300 }} src={course.imageLink} />
+            <Typography textAlign={'center'} variant="h5">{course.description}</Typography>
+            <Typography variant="subtitle1" textAlign={"center"}>Price : {course.price}</Typography>
+            <Button variant="contained" size="large" onClick={async  () => {
+                await axios.post(`${BASE_URL}/user/addToCart`,{courseId:course._id},{
+                headers:{
+                    'Authorization':'Bearer '+localStorage.getItem('token')
+                }})
+                navigate("/Courses")
+                alert("item added to your cart")
+            }}>Add to cart</Button>
+        </Card></div>
 }
 
 export default Course; 
