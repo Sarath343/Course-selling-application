@@ -18,7 +18,10 @@ import { Loading } from './Loading';
 
     }}>
         <Button size={"medium"}
-            variant="contained" >Wish List</Button>
+            variant="contained" 
+            onClick={()=>{
+                navigate('/Cart')
+            }} >Wish List</Button>
         <Button size={"medium"}
             variant="contained" >Purchased Courses</Button>
     </div>
