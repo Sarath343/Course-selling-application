@@ -93,4 +93,4 @@ router.get('/me',authenticateJwt,async (req,res)=>{
    } 
     res.status(403).json({message:"No admin exists"})
 })        
-module.exports = router;
+module.exports = router;    
