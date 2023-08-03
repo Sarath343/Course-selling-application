@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { userState } from './store/atoms/userstate.js'
 import { BASE_URL } from '../src/config.js'
 import Menubar from './component/Menubar.jsx'
+import Orders  from './component/Orders.jsx'
 import axios from 'axios'
 function App() {
   return <RecoilRoot>
@@ -27,6 +28,7 @@ function App() {
         <Route path='/Courses' element={<Courses />} />
         <Route path='/Course/:courseId' element={<Course />} />
         <Route path='/Cart' element={<Cart />} />
+        <Route path='/Orders' element={<Orders/>}></Route>
       </Routes>
     </Router>
   </RecoilRoot>
