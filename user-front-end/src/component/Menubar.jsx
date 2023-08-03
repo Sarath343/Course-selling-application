@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil'
 import { userLoadingSelector, usernameSelector } from '../store/selectors/userselector';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from './Loading';
+
  const Menubar=()=>{
     const isMenu = useRecoilValue(usernameSelector);
     const isLoading = useRecoilValue(userLoadingSelector);
@@ -23,7 +24,11 @@ import { Loading } from './Loading';
                 navigate('/Cart')
             }} >Wish List</Button>
         <Button size={"medium"}
-            variant="contained" >Purchased Courses</Button>
+            variant="contained" 
+            onClick={()=>{
+                navigate('/Orders')
+            }} 
+            >Purchased Courses</Button>
     </div>
     return <></>
 }

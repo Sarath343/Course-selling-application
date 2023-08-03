@@ -38,11 +38,12 @@ const Course = () => {
             <img alt="car pic" style={{ width: 300, maxHeight: 300 }} src={course.imageLink} />
             <Typography textAlign={'center'} variant="h5">{course.description}</Typography>
             <Typography variant="subtitle1" textAlign={"center"}>Price : {course.price}</Typography>
-            <Button variant="contained" size="large" onClick={async  () => {
-                await axios.post(`${BASE_URL}/user/addToCart`,{courseId:course._id},{
-                headers:{
-                    'Authorization':'Bearer '+localStorage.getItem('token')
-                }})
+            <Button variant="contained" size="large" onClick={async () => {
+                await axios.post(`${BASE_URL}/user/addToCart`, { courseId: course._id }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                })
                 navigate("/Courses")
                 alert("item added to your cart")
             }}>Add to cart</Button>

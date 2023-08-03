@@ -16,13 +16,16 @@ const Cart = () => {
     useEffect(() => {
         init();
     }, [])
-    return <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  >
+    return <div> <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}  >
         {courses.map(course => {
-            return <Course course={course} />
+            return <Course course={course}  setWishCourses={setWishCourses} />
         })}
     </div>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+            <Button variant="contained"   >Proceed and pay</Button></div>
+    </div>
 }
-const Course = ({ course }) => {
+const Course = ({ course ,setWishCourses}) => {
     return <Card style={{
         margin: 10,
         width: 300,
@@ -34,8 +37,15 @@ const Course = ({ course }) => {
         <Typography textAlign={'center'} variant="h5">{course.description}</Typography>
         <Typography variant="subtitle1" textAlign={"center"}>Price : {course.price}</Typography>
         <Button variant="contained" size="large"
-            onClick={() => {
-                console.log(course._id);
+            onClick={async () => {
+                const resp =  await axios.delete(`${BASE_URL}/user/removeFromCart/${course._id}`,
+                    {
+                        headers: {
+                            'Authorization': "Bearer " + localStorage.getItem('token')
+                        }
+                    })
+                alert("Successfully removed form cart ")
+                setWishCourses(resp.data.courses);
 
             }}>Remove</Button>
     </Card>
