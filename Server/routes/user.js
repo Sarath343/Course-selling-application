@@ -38,10 +38,33 @@ router.post('/addToCart', authenticateJwt, async (req, res) => {
 router.get('/getCart', authenticateJwt, async (req, res) => {
     const user = await User.findOne({ username: req.admin.username })
     if (user) {
-      const courses =  (await user.populate('wishlist')).wishlist;
-         return res.status(200).json({ courses  })
+        const courses = (await user.populate('wishlist')).wishlist;
+        return res.status(200).json({ courses })
     }
     return res.status(404).json({ message: "invalid User" })
 })
+router.delete('/removeFromCart/:courseId', authenticateJwt, async (req, res) => {
+    const user = await User.findOne({ username: req.admin.username });
+    if (user) {
+        const idx = user.wishlist.findIndex(t => t == req.params.courseId);
+        if (idx === -1) {
+            res.status(404).send();
+        } else {
+            todos = user.wishlist.splice(idx, 1);
+            await user.save();
+            const courses = (await user.populate('wishlist')).wishlist;
+            return res.status(200).json({ message: "successfully removed ", courses })
+        }
+    }
+    return res.status(403).send({ message: "cannot find user" })
 
+})
+router.get('/getPurchasedCourses', authenticateJwt, async (req, res) => {
+    const user = await User.findOne({ username: req.admin.username })
+    if (user) {
+        const courses = (await user.populate('purchasedCourses')).purchasedCourses;
+        return res.status(200).json({ courses })
+    }
+    return res.status(404).json({ message: "invalid User" })
+})
 module.exports = router;
